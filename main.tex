@@ -1,0 +1,117 @@
+\documentclass[10pt]{article}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathpartir}
+\usepackage{stmaryrd}
+\usepackage{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage{listings}
+
+% copied from package braket
+% edited to remove whitespace inside braces
+% and to simplify the definition of \Set because we don't use double-vert
+{\catcode`\|=\active
+  \xdef\set{\protect\expandafter\noexpand\csname set \endcsname}
+  \expandafter\gdef\csname set \endcsname#1{\mathinner
+    {\lbrace{\mathcode`\|32768\let|\midvert #1}\rbrace}}
+  \xdef\Set{\protect\expandafter\noexpand\csname Set \endcsname}
+  \expandafter\gdef\csname Set \endcsname#1{\left\{%
+     {\mathcode`\|32768\let|\SetVert #1}\right\}}
+}
+\def\midvert{\egroup\mid\bgroup}
+\makeatletter
+\def\mid@vertical{\mskip1mu\vrule\mskip1mu}
+\def\SetVert{{\egroup\;\mid@vertical\;\bgroup}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+
+\usepackage[margin=1.5in]{geometry}
+\usepackage{changepage}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead[C]{}
+%\fancyhead[R]{}
+%\setlength{\headheight}{14pt}
+
+\usepackage{lipsum}
+
+\newcommand{\mypyvy}{\texttt{mypyvy}}
+\title{The \mypyvy{} Language for\\First-order Symbolic Transition Systems}
+\author{James R. Wilcox \and And His Friends Who Agree to Join}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+
+\begin{verbatim}
+- mathematical transition systems
+- first-order symbolic transition systems "on paper"
+\end{verbatim}
+
+\section*{Expressing Transition Systems in \mypyvy}
+
+\begin{verbatim}
+- sort
+- immutable/mutable relation/constant/function
+- init
+- transition
+- zero/one/twostate definitions
+- attributes
+- typechecking/inference
+- implicit quantification of capitalized vars at outer scope
+- note on implicit existential on transition params, but *not* defn params
+- note on modifies clauses/frame conjuncts
+\end{verbatim}
+
+\section*{Queries on Transition Systems}
+
+\begin{verbatim}
+- trace/bmc; the trace declaration; sat/unsat qualifier
+- how to read states printed by mypyvy
+- verify: invariant/safety
+- zero/one/twostate theorem
+- side note: custom printers using attributes
+- updr
+\end{verbatim}
+
+\section*{Internals of \mypyvy}
+
+\begin{verbatim}
+- a tour of main()
+- the mental model of k-state formulas (correctly handling immutable)
+- philosophy on interacting with z3, the Solver class
+- how to write a mypyvy "plugin"
+- syntax.the_program and its consequences
+\end{verbatim}
+
+\section*{Past, Present, and Future Work}
+
+\begin{verbatim}
+- our port of the raft proof
+- yotam's cav19
+- jason's plid20
+- pd
+- derived relations?
+- yotam's looking back algorithm or whatever it's called
+- future directions in internals:
+  - collapsing the many kinds of queries into one
+  - handling transition declarations more uniformly (exists, modifies)
+  - introducing a "logic" layer or other IR, or do less at z3 level
+  - revisiting the "one program" mindset
+\end{verbatim}
+
+\section*{Conclusion}
+
+\begin{verbatim}
+- call to arms for collaborators, builders-on-toppers, and users
+- vision blah blah about verification UX and "exploration" of a TS,
+  saving progress from run to run, "workbench"
+\end{verbatim}
+
+\end{document}
